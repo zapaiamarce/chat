@@ -1,22 +1,50 @@
 import Router from "next/router";
 import View from "./view";
+import { useState, useEffect } from "react";
+import * as chatClient from "lib/chat";
 
 export default () => {
-  const onChangeUser = e => {
+  const [typingMessage, setTypingMessage] = useState("");
+  const [messages, setLastMessages] = useState([]);
+  const [userName, setUserName] = useState();
+
+  const onLogoutUser = e => {
     localStorage.removeItem("userName");
     Router.push("/");
   };
-  return <View onChangeUser={onChangeUser} messages={[
-    {
-      from: "tom",
-      text: "hi",
-      timestamp:new Date()
-    },
-    {
-      from: "Marce",
-      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      mine: true,
-      timestamp:new Date()
+  const syncMessages = async () => {
+    const messages = await chatClient.getMessages();
+    setLastMessages(messages);
+    console.log("messages sync");
+  };
+
+  useEffect(() => {
+    const userName = localStorage.getItem("userName");
+    if (userName) {
+      setUserName(userName);
+      setInterval(syncMessages, 2000);
+    } else {
+      onLogoutUser();
     }
-  ]} />;
+  }, []);
+
+  const handleSubmitMessage = async message => {
+    setTypingMessage("");
+    await chatClient.sendMessage({
+      message,
+      author: userName
+    });
+    syncMessages();
+  };
+
+  return (
+    <View
+      typingMessage={typingMessage}
+      onMessageChange={setTypingMessage}
+      onMessageSubmit={handleSubmitMessage}
+      onLogoutUser={onLogoutUser}
+      currentUserName={userName}
+      messages={messages}
+    />
+  );
 };

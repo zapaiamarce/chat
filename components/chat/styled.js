@@ -1,23 +1,28 @@
 import styled from "styled-components";
+import Button from "ui/button";
+import ScrollToBottom from 'react-scroll-to-bottom';
 
 export const Root = styled.div`
   background-image: url("/static/img/bg.jpg");
-  min-height: 100vh;
+  height: 100vh;
   display: grid;
   grid-template-rows: 1fr auto;
 `;
 
-export const Messages = styled.div`
-  padding: 0 10px;
+export const Messages = styled(ScrollToBottom)`
+  padding: 5px 10px;
+  overflow: auto;
   @media (min-width: ${props => props.theme.screenSizes.small}) {
-    padding: 0 50px;
+    padding: 10px 40px;
   }
 `;
-
 
 export const MessageBoxContainer = styled.div`
   margin: 10px 0;
   text-align: ${props => (props.mine ? "right" : "inherit")};
+  &:first-child{
+    margin-top: 50px;
+  }
 `;
 
 export const MessageBox = styled.div`
@@ -45,15 +50,24 @@ export const MessageTime = styled(MessageSenderName)`
   text-align: ${props => (props.mine ? "right" : "inherit")};
 `;
 
-
 export const SendMessage = styled(Messages)`
   background-color: ${props => props.theme.colors.primary};
   display: grid;
   align-items: center;
   grid-template-columns: 1fr auto;
   grid-column-gap: 10px;
-  /* padding: 10 10px; */
-  @media (min-width: ${props => props.theme.screenSizes.small}) {
+
+  /* @media (min-width: ${props => props.theme.screenSizes.small}) {
     padding: 5px 50px;
-  }
+  } */
+`;
+
+export const ChangeUserButton = styled(Button)`
+  background-color: #333;
+  font-size: 14px;
+  padding: 10px;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
 `;

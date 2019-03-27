@@ -1,6 +1,7 @@
 import React from "react";
 import App, { Container } from "next/app";
 import WithTheme from "ui/with-theme";
+require("isomorphic-fetch");
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
