@@ -1,0 +1,22 @@
+{
+  "name": "doodle-chat",
+  "version": "0.0.1",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "^8.0.3",
+    "next-offline": "^3.3.7",
+    "react": "^16.8.5",
+    "react-dom": "^16.8.5",
+    "styled-components": "^4.2.0"
+  },
+  "devDependencies": {
+    "babel-plugin-module-resolver": "^3.2.0",
+    "babel-plugin-styled-components": "^1.10.0"
+  }
+}
