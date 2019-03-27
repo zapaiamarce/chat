@@ -1,12 +1,11 @@
-import InputText from "ui/input-text";
-import Button from "ui/button";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Router from "next/router";
+import View from "./view";
 
 export default () => {
-  const handleSubmit = e => {
-    e.preventDefault();
-    const userName = e.target.name.value;
+  const [show, setShow] = useState();
+
+  const handleLogin = userName => {
     localStorage.setItem("userName", userName);
     Router.push("/chat");
   };
@@ -15,18 +14,10 @@ export default () => {
     const currentUserName = localStorage.getItem("userName");
     if (currentUserName) {
       Router.push("/chat");
+    } else {
+      setShow(true);
     }
   }, []);
 
-  return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="name">
-        Your Name
-        <div>
-          <InputText id="name" name="name" />
-        </div>
-        <Button>Get In</Button>
-      </label>
-    </form>
-  );
+  return show ? <View onLogin={handleLogin} /> : null;
 };

@@ -3,12 +3,15 @@ import { Fragment } from "react";
 import theme from "./theme";
 
 const GlobalStyles = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css?family=Lato');
-
-  body{
-    font-family: "Lato";
+  @import url('https://fonts.googleapis.com/css?family=Fira+Sans');
+  body, input, select, button{
+    font-family: 'Fira Sans', sans-serif;
+    font-size: 16px;
   }
-  body,h1,h2,h3,h4,h5,h6{
+  *{
+    box-sizing: border-box;
+  }
+  body,h1,h2,h3,h4,h5,h6,p{
     margin: 0;
   }
 `;
