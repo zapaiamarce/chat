@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Input = styled.input`
   padding: ${props => props.theme.boxPadding};
-  border: solid 1px black;
+  border: solid 2px #777;
   border-radius: ${props => props.theme.boxBorderRadius};
 `;
 
